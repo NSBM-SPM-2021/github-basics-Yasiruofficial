@@ -10,7 +10,7 @@ on:
 jobs:
   build:
 
-    runs-on: [self hosted, frontend]
+    runs-on: [self-hosted,Linux,X64,frontend]
 
     strategy:
       matrix:

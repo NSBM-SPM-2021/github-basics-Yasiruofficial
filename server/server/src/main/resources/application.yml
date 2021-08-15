@@ -1,0 +1,14 @@
+server:
+  port: 9001
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/hrportal
+    username: root
+    datasource:
+#     password: null
+      driver-class-name: com.mysql.jdbc.Driver

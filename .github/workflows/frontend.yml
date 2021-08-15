@@ -28,8 +28,5 @@ jobs:
     - name: Create Docker File
       working-directory: ./client
       run: docker build -t yasiru1999/hr-portal:frontend .
-      
-#     - name: Building Project Dep
-#       working-directory: ./client
-#       run: npm run build --if-present
+
 

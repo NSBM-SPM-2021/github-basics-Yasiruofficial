@@ -25,11 +25,15 @@ jobs:
         cache: 'npm'
         cache-dependency-path: ./client/package-lock.json
         
-    - name: Install Dep
+    - name: Check PWD
       working-directory: ./client
-      run: npm ci
+      run: pwd
+        
+#     - name: Install Dep
+#       working-directory: ./client
+#       run: npm ci
       
-    - name: Building Project Dep
-      working-directory: ./client
-      run: npm run build --if-present
+#     - name: Building Project Dep
+#       working-directory: ./client
+#       run: npm run build --if-present
 

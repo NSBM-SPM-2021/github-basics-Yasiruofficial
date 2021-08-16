@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -23,6 +24,6 @@ jobs:
       
     - name: Create Docker File
       working-directory: ./client
-      run: docker build -t yasiru1999/hr-portal:frontend .
+      run: node -v
 
 

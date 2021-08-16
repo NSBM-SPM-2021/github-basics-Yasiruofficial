@@ -46,6 +46,15 @@ jobs:
         file: ./client/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/hr-portal:frontend
+        
+    - name: Create Fresh Frontend Service On Swarm 
+      id: create
+      run: docker service create --replicas 2 --publish published=4200,target=80 --name="frontendservice" yasiru1999/hr-portal:frontend
+      continue-on-error: true
+      
+    - name: Update Frontend Service On Swarm 
+      if: steps.create.outcome != 'success'
+      run: docker service update --image yasiru1999/hr-portal:frontend frontendservice
 
       
 

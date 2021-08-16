@@ -45,7 +45,7 @@ jobs:
         context: ./client
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hr-portal:frontend
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/hr-portal:frontend
 
       
 

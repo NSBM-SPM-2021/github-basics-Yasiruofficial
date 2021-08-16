@@ -30,5 +30,8 @@ jobs:
         
     - name: Create Docker File
       run: node -v
+    - name: LS CMD
+      run: ls
+
       
 

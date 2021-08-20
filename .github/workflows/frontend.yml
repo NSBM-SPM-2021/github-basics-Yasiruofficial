@@ -49,7 +49,7 @@ jobs:
         
     - name: Create Fresh Frontend Service On Swarm 
       id: create
-      run: docker service create --replicas 2 --publish published=4200,target=80 --name="frontendservice" yasiru1999/hr-portal:frontend
+      run: docker service create --replicas 2 --publish published=8080,target=80 --name="frontendservice" yasiru1999/hr-portal:frontend
       continue-on-error: true
       
     - name: Update Frontend Service On Swarm 

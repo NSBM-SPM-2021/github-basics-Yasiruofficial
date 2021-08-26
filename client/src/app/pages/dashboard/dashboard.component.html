@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav mode="side" opened position="start">
+    <div class="mat-sidenav-title"><img src="/assets/logo.png"/></div>
+    <mat-divider></mat-divider>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" >
+      NSBM HR
+
+      <button mat-button [matMenuTriggerFor]="menu" class="mat-menu"><mat-icon>menu</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+      <!-- #enddocregion mat-menu-trigger-for -->
+
+    </mat-toolbar>
+    <div class="main-content">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>

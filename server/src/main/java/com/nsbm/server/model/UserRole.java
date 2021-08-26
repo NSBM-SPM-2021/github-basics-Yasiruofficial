@@ -19,10 +19,10 @@ public class UserRole {
 
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
+    @OneToMany(mappedBy = "userRole")
     private Set<Employee> employees;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
+    @OneToMany(mappedBy = "userRole")
     private Set<GrantedAuthority> grantedAuthorities;
 
     public Long getId() {

@@ -23,7 +23,6 @@ public class Attendance {
 
     private String type;
 
-    @JoinColumn
     @ManyToOne(cascade = {CascadeType.ALL})
     private Employee employee;
 

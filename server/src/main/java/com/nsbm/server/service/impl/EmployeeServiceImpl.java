@@ -2,7 +2,10 @@ package com.nsbm.server.service.impl;
 import com.nsbm.server.model.Employee;
 import com.nsbm.server.model.GrantedAuthority;
 import com.nsbm.server.model.UserPermission;
+import com.nsbm.server.model.UserRole;
 import com.nsbm.server.repository.EmployeeRepository;
+import com.nsbm.server.repository.GrantedAuthorityRepository;
+import com.nsbm.server.repository.UserRoleRepository;
 import com.nsbm.server.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +16,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -21,9 +23,13 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService , UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final GrantedAuthorityRepository grantedAuthorityRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRoleRepository userRoleRepository, GrantedAuthorityRepository grantedAuthorityRepository) {
         this.employeeRepository = employeeRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.grantedAuthorityRepository = grantedAuthorityRepository;
     }
 
     @Override
@@ -74,11 +80,12 @@ public class EmployeeServiceImpl implements EmployeeService , UserDetailsService
         } else {
             log.info("User found in the database: {}", employee);
 
-            Set<GrantedAuthority> grantedAuthorities =  employee.get().getUserRole().getGrantedAuthorities();
+            UserRole userRole =  employee.get().getUserRole();
+            Set<GrantedAuthority> grantedAuthorities =  grantedAuthorityRepository.findAllByUserRole(userRole);
 
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-            for (GrantedAuthority grantedAuthority : employee.get().getUserRole().getGrantedAuthorities()) {
+            for (GrantedAuthority grantedAuthority : grantedAuthorities) {
 
                 UserPermission userPermission = grantedAuthority.getUserPermission();
                 String p = userPermission.getEntity() +":"+ userPermission.getAccess();

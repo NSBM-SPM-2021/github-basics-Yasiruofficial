@@ -25,10 +25,9 @@ public class Employee{
     private String address;
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<Attendance> attendances;
 
-    @JoinColumn
     @ManyToOne(cascade = {CascadeType.ALL})
     private UserRole userRole;
 

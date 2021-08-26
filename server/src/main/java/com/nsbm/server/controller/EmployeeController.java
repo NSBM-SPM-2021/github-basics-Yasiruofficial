@@ -1,15 +1,14 @@
 package com.nsbm.server.controller;
 
 import com.nsbm.server.model.*;
-import com.nsbm.server.service.impl.EmployeeServiceImpl;
-import com.nsbm.server.service.impl.GrantedAuthorityServiceImpl;
-import com.nsbm.server.service.impl.UserUserPermissionServiceImpl;
-import com.nsbm.server.service.impl.UserUserRoleServiceImpl;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.nsbm.server.repository.EmployeeRepository;
+import com.nsbm.server.repository.UserPermissionRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 
@@ -17,22 +16,13 @@ import java.util.List;
 @RequestMapping("api")
 public class EmployeeController {
 
-    private EmployeeServiceImpl employeeService;
-    private UserUserRoleServiceImpl roleService;
-    private UserUserPermissionServiceImpl permissionService;
-    private GrantedAuthorityServiceImpl grantedAuthorityService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public EmployeeController(EmployeeServiceImpl employeeService,
-                              UserUserRoleServiceImpl roleService,
-                              UserUserPermissionServiceImpl permissionService,
-                              GrantedAuthorityServiceImpl grantedAuthorityService,
-                              BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.employeeService = employeeService;
-        this.roleService = roleService;
-        this.permissionService = permissionService;
-        this.grantedAuthorityService = grantedAuthorityService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    private EmployeeRepository employeeRepository;
+    private UserPermissionRepository permissinRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository, UserPermissionRepository permissinRepository){
+        this.employeeRepository = employeeRepository;
+        this.permissinRepository = permissinRepository;
     }
 
 //        Employee staff = new Employee(null,
@@ -53,19 +43,29 @@ public class EmployeeController {
 
 
     @GetMapping("/emp")
-    @PreAuthorize("hasAuthority('employee:read')")
-    public UserRole emp(){
-        return employeeService.findByEno("PN234").getUserRole();
+    public List<Employee> emp(){
+        return employeeRepository.findAll();
     }
-    @PreAuthorize("hasAuthority('attendance:delete')")
-    @GetMapping("/roles")
-    public List<UserRole> roles(){
-        return roleService.findAll();
+
+    @GetMapping("/emp1")
+    public List<String[]> emp1(){
+        Pageable pageable = PageRequest.of(0, 2);
+        List<String[]> e = permissinRepository.getPermissions(pageable);
+        return e;
     }
-    @GetMapping("/per")
-    public List<UserPermission> per(){
-        return  permissionService.findAll();
-    }
+
+
+
+
+//    @PreAuthorize("hasAuthority('attendance:delete')")
+//    @GetMapping("/roles")
+//    public List<UserRole> roles(){
+//        return roleService.findAll();
+//    }
+//    @GetMapping("/per")
+//    public List<UserPermission> per(){
+//        return  permissionService.findAll();
+//    }
 
 
 }

@@ -1,0 +1,24 @@
+
+mat-sidenav{
+  width:200px;
+  text-align:center;
+}
+
+.mat-sidenav-title{
+  height:100px;
+}
+
+.mat-sidenav-title img{
+  height:100%;
+}
+
+mat-toolbar{
+  height:60px;
+}
+mat-toolbar .mat-menu{
+  float:right;
+}
+.main-content{
+  height:100px;
+  vertical-align:center;
+}

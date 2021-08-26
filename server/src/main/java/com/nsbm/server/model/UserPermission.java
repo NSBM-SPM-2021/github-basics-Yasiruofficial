@@ -1,5 +1,6 @@
 package com.nsbm.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class UserPermission {
     private String entity;
     private String access;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userPermission")
+    @OneToMany(mappedBy = "userPermission")
     private Set<GrantedAuthority> grantedAuthorities;
 
     public Long getId() {
@@ -46,7 +47,7 @@ public class UserPermission {
         this.access = access;
     }
 
-    @JsonManagedReference
+    @JsonBackReference
     public Set<GrantedAuthority> getGrantedAuthorities() {
         return grantedAuthorities;
     }

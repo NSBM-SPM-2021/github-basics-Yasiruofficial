@@ -16,11 +16,9 @@ public class GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn
     @ManyToOne(cascade = {CascadeType.ALL})
     private UserRole userRole;
 
-    @JoinColumn
     @ManyToOne(cascade = {CascadeType.ALL})
     private UserPermission userPermission;
 
@@ -42,7 +40,7 @@ public class GrantedAuthority {
         this.userRole = userRole;
     }
 
-    @JsonBackReference
+    @JsonManagedReference
     public UserPermission getUserPermission() {
         return userPermission;
     }

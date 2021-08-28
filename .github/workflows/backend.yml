@@ -46,5 +46,4 @@ jobs:
       if: steps.create.outcome != 'success'
       run: docker service update --image yasiru1999/hr-portal:backend backendservice
 
-
       

@@ -2,7 +2,7 @@ name: Node.js CI / CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
     
 defaults:
   run:

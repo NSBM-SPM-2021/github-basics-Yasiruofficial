@@ -1,5 +1,9 @@
-import {Component, Input, OnInit, Output,EventEmitter} from '@angular/core';
+import {Component, Input, OnInit,OnDestroy} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
+import {AuthService} from "../services/auth.service";
+import {TokenStorageService} from "../services/token-storage.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -7,10 +11,22 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  private isLoggedIn: boolean = false;
+  private roles: any;
+  private isLoginFailed: boolean = false;
+  private errorMessage: any;
+
+
+  constructor(private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private router: Router,
+              private route: ActivatedRoute
+  ) { }
+
+  login : Subscription = new Subscription();
+
+  ngOnInit(): void {}
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
@@ -18,12 +34,31 @@ export class LoginComponent implements OnInit {
   });
 
   submit() {
-    if (this.form.valid) {
-      console.log(this.form.value)
-    }else{
-      console.log("Error")
-    }
+
+    const { username, password } = this.form.value;
+
+    this.login = this.authService.login(username, password).subscribe(
+
+      data => {
+        this.tokenStorage.saveToken(data.access_token);
+        if(this.route.snapshot.queryParams['returnUrl']){
+          this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
+        }else{
+          this.router.navigate(['dashboard']);
+        }
+
+      },
+      err => {
+        console.log(JSON.stringify(err));
+      }
+    );
+
   }
+
+  ngOnDestroy() {
+    this.login.unsubscribe();
+  }
+
   @Input() error: boolean = false
 
 }

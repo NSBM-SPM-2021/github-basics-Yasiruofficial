@@ -1,0 +1,80 @@
+<div class="main-content">
+  <h1>Employee Details</h1>
+  <router-outlet></router-outlet>
+</div>
+
+<dx-data-grid id="gridContainer"
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [remoteOperations]="true">
+  <dxo-search-panel [visible]="true" placeholder="Employee ID"></dxo-search-panel>
+
+  <dxo-load-panel
+    [enabled]="true"
+    indicatorSrc="../../../../assets/loading.svg"
+    [showPane]="true"
+    text=""
+  ></dxo-load-panel>
+
+  <dxo-editing
+    mode="row"
+    [allowAdding]="true"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [useIcons]="true"
+  >
+  </dxo-editing>
+
+  <dxi-column
+    dataField="eno"
+    dataType="string">
+  </dxi-column>
+  <dxi-column
+    [allowFiltering]="false"
+    dataField="nic"
+    dataType="string">
+  </dxi-column>
+  <dxi-column
+    [allowFiltering]="false"
+    dataField="name"
+    dataType="string">
+  </dxi-column>
+  <dxi-column
+    [allowFiltering]="false"
+    dataField="address"
+    dataType="string">
+  </dxi-column>
+  <dxi-column
+    [allowFiltering]="false"
+    dataField="email"
+    dataType="string">
+  </dxi-column>
+  <dxi-column
+    [allowFiltering]="false"
+    dataField="userRoleId"
+    dataType="string"
+    caption="User Role"
+  >
+
+    <dxo-lookup
+      [dataSource]="rolse"
+      valueExpr="userRoleId"
+      displayExpr="name">
+    </dxo-lookup>
+
+
+  </dxi-column>
+  <dxo-paging [pageSize]="5"></dxo-paging>
+  <dxo-pager
+    [showPageSizeSelector]="true"
+    [allowedPageSizes]="[2,5]"
+  ></dxo-pager>
+
+
+
+</dx-data-grid>
+<dx-toast [(visible)]="isVisitable" [type]="type" [message]="error">
+
+
+
+

@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmployeeDto {
 
-    private String id;
-    private String dateTime;
-    private String type;
+    private String eno;
+    private String nic;
+    private String name;
+    private String address;
+    private String email;
+    private String userRoleId;
+
+
 
 }

@@ -1,14 +1,29 @@
 server:
-  port: 8080
+  port: 9001
 
 spring:
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
-#    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/hrportal
-    url: jdbc:mysql://${MYSQL_HOST:nsbmhr.cvogg9fyxisq.us-east-1.rds.amazonaws.com}:3306/nsbmhrDB
-    username: admin
-    password: EZTK7fso3e
+    #    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/hrportal
+#    url: jdbc:mysql://${MYSQL_HOST:nsbmhr.cvogg9fyxisq.us-east-1.rds.amazonaws.com}:3306/nsbmhrDB?autoReconnect=false&zeroDateTimeBehavior=convertToNull&createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8
+#    username: admin
+#    password: EZTK7fso3e
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/nsbmhrDB?autoReconnect=false&zeroDateTimeBehavior=convertToNull&createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+#    password: EZTK7fso3e
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+         descriptor:
+           sql: trace

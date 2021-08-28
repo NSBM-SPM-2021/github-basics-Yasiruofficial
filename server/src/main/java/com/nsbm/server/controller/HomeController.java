@@ -1,13 +1,19 @@
 package com.nsbm.server.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.nsbm.server.service.impl.UserPermissionServiceImpl;
+import com.nsbm.server.service.impl.UserRoleServiceImpl;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/home")
 public class HomeController {
 
-    @GetMapping("/")
-    public String getValidity(){
-        return "Working";
+    private UserRoleServiceImpl roleService;
+    private UserPermissionServiceImpl permissionService;
+
+    public HomeController(UserRoleServiceImpl roleService, UserPermissionServiceImpl permissionService) {
+        this.roleService = roleService;
+        this.permissionService = permissionService;
     }
+
+
 }

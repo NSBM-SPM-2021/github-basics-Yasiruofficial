@@ -1,6 +1,7 @@
 package com.nsbm.server.service.impl;
 
 import com.nsbm.server.model.UserPermission;
+import com.nsbm.server.model.UserRole;
 import com.nsbm.server.repository.UserPermissionRepository;
 import com.nsbm.server.service.UserPermissionService;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserUserPermissionServiceImpl implements UserPermissionService {
+public class UserPermissionServiceImpl implements UserPermissionService {
 
     private UserPermissionRepository userPermissionRepository;
 
-    public UserUserPermissionServiceImpl(UserPermissionRepository userPermissionRepository) {
+    public UserPermissionServiceImpl(UserPermissionRepository userPermissionRepository) {
         this.userPermissionRepository = userPermissionRepository;
     }
 
@@ -26,11 +27,12 @@ public class UserUserPermissionServiceImpl implements UserPermissionService {
     public UserPermission delete(UserPermission userPermission) {
         Optional<UserPermission> p = userPermissionRepository.findById(userPermission.getId());
 
-        if(!p.isPresent()){
+        if(p.isPresent()){
             userPermissionRepository.delete(p.get());
+            return p.get();
         }
+        throw new IllegalStateException("UserPermission Not Found");
 
-        return p.get();
     }
 
     @Override
@@ -40,7 +42,11 @@ public class UserUserPermissionServiceImpl implements UserPermissionService {
 
     @Override
     public UserPermission findById(Long id) {
-        return userPermissionRepository.findById(id).orElse(null);
+        Optional<UserPermission> permission =userPermissionRepository.findById(id);
+        if(permission.isPresent()) {
+            return permission.get();
+        }
+        throw new IllegalStateException("UserPermission Not Found");
     }
 
     @Override

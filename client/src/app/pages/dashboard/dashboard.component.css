@@ -1,7 +1,73 @@
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+.navbar-nav .nav-item .submenu {
+  visibility: hidden;
+  opacity: 0;
+  list-style: none;
+  width: 200px;
+  position: absolute;
+  background: #fff;
+  z-index: 99;
+  border-top: 2px solid #000080;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transform: translateY(25px);
+  -webkit-transform: translateY(25px);
+  -moz-transform: translateY(25px);
+  -ms-transform: translateY(25px);
+  -o-transform: translateY(25px);
+}
+
+.navbar-nav .nav-item .submenu li,
+.navbar-nav .nav-item .megamenu ul li {
+  line-height: 35px;
+  font-size: 14px;
+}
+
+.navbar-nav .nav-item .submenu a li mat-icon{
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+.navbar-nav .nav-item mat-icon{
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+
+.navbar-nav .nav-item .submenu a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #000;
+}
+
+.navbar-nav .nav-item:hover .submenu{
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar-nav .nav-item .submenu li:hover {
+  background: #eee;
+}
+
+/*-------------------------------------------------------*/
 
 mat-sidenav{
   width:200px;
-  text-align:center;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.navbar-nav div{
+  margin-top: 20px;
 }
 
 .mat-sidenav-title{
@@ -15,10 +81,11 @@ mat-sidenav{
 mat-toolbar{
   height:60px;
 }
-mat-toolbar .mat-menu{
-  float:right;
+
+.example-spacer{
+  flex: 1 1 auto;
 }
 .main-content{
-  height:100px;
-  vertical-align:center;
+  padding: 20px;
 }
+

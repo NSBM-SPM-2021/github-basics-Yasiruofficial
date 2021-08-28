@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {HOST} from "../global-variables";
+import {httpOptions_Global} from "../global-variables";
 
-const AUTH_API = 'http://localhost:9001/api/';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-};
+const AUTH_API = HOST;
+
+const httpOptions = httpOptions_Global
 
 @Injectable({
   providedIn: 'root'

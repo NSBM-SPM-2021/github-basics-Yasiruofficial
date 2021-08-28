@@ -27,11 +27,12 @@ public class GrantedAuthorityServiceImpl implements GrantedAuthorityService {
 
         Optional<GrantedAuthority> g = grantedAuthorityRepository.findById(grantedAuthority.getId());
 
-        if(!g.isPresent()){
+        if(g.isPresent()){
             grantedAuthorityRepository.delete(g.get());
+            return g.get();
         }
+        throw new IllegalStateException("GrantedAuthorityRepository Not Found");
 
-        return g.get();
     }
 
     @Override
@@ -41,7 +42,11 @@ public class GrantedAuthorityServiceImpl implements GrantedAuthorityService {
 
     @Override
     public GrantedAuthority findById(Long id) {
-        return grantedAuthorityRepository.findById(id).orElse(null);
+        Optional<GrantedAuthority> auth =grantedAuthorityRepository.findById(id);
+        if(auth.isPresent()) {
+            return auth.get();
+        }
+        throw new IllegalStateException("GrantedAuthorityRepository Not Found");
     }
 
     @Override

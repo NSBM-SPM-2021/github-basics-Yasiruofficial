@@ -1,5 +1,6 @@
 package com.nsbm.server.service.impl;
 
+import com.nsbm.server.model.GrantedAuthority;
 import com.nsbm.server.model.UserRole;
 import com.nsbm.server.repository.UserRoleRepository;
 import com.nsbm.server.service.UserRoleService;
@@ -9,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserUserRoleServiceImpl implements UserRoleService {
+public class UserRoleServiceImpl implements UserRoleService {
 
     private UserRoleRepository userRoleRepository;
 
-    public UserUserRoleServiceImpl(UserRoleRepository userRoleRepository) {
+    public UserRoleServiceImpl(UserRoleRepository userRoleRepository) {
         this.userRoleRepository = userRoleRepository;
     }
 
@@ -29,9 +30,12 @@ public class UserUserRoleServiceImpl implements UserRoleService {
 
         if(r.isPresent()){
             userRoleRepository.delete(r.get());
+            return r.get();
         }
 
-        return r.get();
+        throw new IllegalStateException("UserRole Not Found");
+
+
     }
 
     @Override
@@ -42,7 +46,13 @@ public class UserUserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserRole findById(Long id) {
-        return userRoleRepository.findById(id).orElse(new UserRole());
+
+        Optional<UserRole> role =userRoleRepository.findById(id);
+        if(role.isPresent()) {
+            return role.get();
+        }
+        throw new IllegalStateException("UserRole Not Found");
+
     }
 
     @Override

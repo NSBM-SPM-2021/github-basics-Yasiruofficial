@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         if(this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
         }else{
-          this.router.navigate([this.route.snapshot.queryParams['dashboard']]);
+          this.router.navigate(['dashboard']);
         }
 
       },

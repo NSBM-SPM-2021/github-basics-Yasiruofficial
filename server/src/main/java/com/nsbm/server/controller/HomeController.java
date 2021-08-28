@@ -1,16 +1,16 @@
 package com.nsbm.server.controller;
 
-import com.nsbm.server.service.impl.UserUserPermissionServiceImpl;
-import com.nsbm.server.service.impl.UserUserRoleServiceImpl;
+import com.nsbm.server.service.impl.UserPermissionServiceImpl;
+import com.nsbm.server.service.impl.UserRoleServiceImpl;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/home")
 public class HomeController {
 
-    private UserUserRoleServiceImpl roleService;
-    private UserUserPermissionServiceImpl permissionService;
+    private UserRoleServiceImpl roleService;
+    private UserPermissionServiceImpl permissionService;
 
-    public HomeController(UserUserRoleServiceImpl roleService, UserUserPermissionServiceImpl permissionService) {
+    public HomeController(UserRoleServiceImpl roleService, UserPermissionServiceImpl permissionService) {
         this.roleService = roleService;
         this.permissionService = permissionService;
     }

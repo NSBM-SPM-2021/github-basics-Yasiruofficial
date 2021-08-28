@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
+import {DxDataGridModule, DxLoadPanelModule, DxToastModule} from "devextreme-angular";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -11,7 +13,11 @@ import { EmployeeComponent } from './employee.component';
   ],
   imports: [
     CommonModule,
-    EmployeeRoutingModule
+    EmployeeRoutingModule,
+    DxDataGridModule,
+    HttpClientModule,
+    DxLoadPanelModule,
+    DxToastModule
   ]
 })
 export class EmployeeModule { }

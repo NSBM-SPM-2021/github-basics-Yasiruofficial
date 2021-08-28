@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  menus : any = [
+    {
+      heading: "MENU1",
+      options:
+        [
+          {name: "IAM",link: "iam", order: 1},
+          {name: "Employee",link: "employee", order: 2},
+        ]
+    }
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

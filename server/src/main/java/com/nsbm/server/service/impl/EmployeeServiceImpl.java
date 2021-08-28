@@ -1,13 +1,16 @@
 package com.nsbm.server.service.impl;
+import com.nsbm.server.dto.EmployeeDto;
 import com.nsbm.server.model.Employee;
 import com.nsbm.server.model.GrantedAuthority;
 import com.nsbm.server.model.UserPermission;
 import com.nsbm.server.model.UserRole;
 import com.nsbm.server.repository.EmployeeRepository;
 import com.nsbm.server.repository.GrantedAuthorityRepository;
-import com.nsbm.server.repository.UserRoleRepository;
 import com.nsbm.server.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,51 +26,166 @@ import java.util.*;
 public class EmployeeServiceImpl implements EmployeeService , UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
-    private final UserRoleRepository userRoleRepository;
     private final GrantedAuthorityRepository grantedAuthorityRepository;
+    private UserRoleServiceImpl userRoleService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRoleRepository userRoleRepository, GrantedAuthorityRepository grantedAuthorityRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, GrantedAuthorityRepository grantedAuthorityRepository, UserRoleServiceImpl userRoleService) {
         this.employeeRepository = employeeRepository;
-        this.userRoleRepository = userRoleRepository;
         this.grantedAuthorityRepository = grantedAuthorityRepository;
+        this.userRoleService = userRoleService;
     }
 
     @Override
-    public Employee save(Employee employee) {
-        return employeeRepository.save(employee);
+    public EmployeeDto save(EmployeeDto employeeDto) {
+
+        Employee e = new Employee();
+        e.setEno(employeeDto.getEno());
+        e.setNic(employeeDto.getNic());
+        e.setName(employeeDto.getName());
+        e.setAddress(employeeDto.getAddress());
+        e.setEmail(employeeDto.getEmail());
+        UserRole userRole = userRoleService.findById(Long.valueOf(employeeDto.getUserRoleId()));
+        e.setUserRole(userRole);
+
+        employeeRepository.save(e);
+
+        return employeeDto;
+
     }
 
     @Override
-    public Employee delete(Employee employee) {
+    public EmployeeDto delete(EmployeeDto employee) {
 
         Optional<Employee> e = employeeRepository.findByEno(employee.getEno());
 
         if(e.isPresent()){
-            employeeRepository.delete(e.get());
+            e.get().setUserRole(null);
+            employeeRepository.deleteById(e.get().getId());
+            return new EmployeeDto();
         }
-        return e.get();
+        throw new UsernameNotFoundException("User not found in the database");
 
     }
 
     @Override
-    public Employee edit(Employee employee) {
-        return employeeRepository.save(employee);
+    public EmployeeDto edit(String key,EmployeeDto employeeDto) {
+
+        System.out.println("Invoke Edit Method");
+
+        Optional<Employee> e = employeeRepository.findByEno(key);
+
+        if(e.isPresent()) {
+            if(employeeDto.getEno() != null){
+                e.get().setEno(employeeDto.getEno());
+            }
+            if(employeeDto.getNic() != null){
+                e.get().setNic(employeeDto.getNic());
+            }
+            if(employeeDto.getName() != null){
+                e.get().setName(employeeDto.getName());
+            }
+            if(employeeDto.getAddress() != null){
+                e.get().setAddress(employeeDto.getAddress());
+            }
+            if(employeeDto.getEmail() != null){
+                e.get().setEmail(employeeDto.getEmail());
+            }
+            if(employeeDto.getUserRoleId() != null){
+                UserRole role = userRoleService.findById(Long.valueOf(employeeDto.getUserRoleId()));
+                e.get().setUserRole(role);
+            }
+
+            System.out.println(e.get().toString());
+            System.out.println("End Edit Method");
+            employeeRepository.save(e.get());
+
+            return employeeDto;
+        }
+        throw new UsernameNotFoundException("User not found in the database");
+
+
     }
 
     @Override
-    public Employee findById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeDto findById(Long id) {
+
+        Optional<Employee> employee =employeeRepository.findById(id);
+        if(employee.isPresent()) {
+            return mapEmployeeToDto(employee.get());
+        }
+        throw new UsernameNotFoundException("User not found in the database");
+
     }
 
     @Override
-    public Employee findByEno(String eno) {
-        return employeeRepository.findByEno(eno).orElse(null);
+    public EmployeeDto findByEno(String eno) {
+
+        Optional<Employee> employee =employeeRepository.findByEno(eno);
+        if(employee.isPresent()) {
+            return mapEmployeeToDto(employee.get());
+        }
+        throw new UsernameNotFoundException("User not found in the database");
+
     }
 
+
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public HashMap<String,Object> findAll(boolean requireTotalCount, int skip, int take, String sort, String filter) {
+
+        Pageable pageable;
+        Page<Employee> employeePage;
+        List<Employee> employeeList;
+        int totalCount;
+
+        pageable = PageRequest.of(skip/take,take);
+
+        if(filter == null){
+            employeePage = employeeRepository.findAll(pageable);
+            totalCount = (int)employeePage.getTotalElements();
+
+        }else{
+
+            filter = filter.replace("\"", "");
+            filter = filter.replace("]", "");
+            filter = filter.replace("[", "");
+            filter = filter.replace(" ", "");
+
+            String[] splitFilter = filter.split(",");
+
+            String query = "";
+
+                if(splitFilter[1].equals("contains")){
+                    switch(splitFilter[0]){
+                        case "eno":
+                            query = splitFilter[2]; break;
+                    }
+                }
+
+            employeePage = employeeRepository.findByEnoContaining(query,pageable);
+            totalCount = (int)employeePage.getTotalElements();
+
+        }
+
+        employeeList =employeePage.getContent();
+        List<EmployeeDto> responseEmployeeList = new ArrayList<>();
+
+        for( Employee e : employeeList ){
+
+            EmployeeDto employeeDto = new EmployeeDto();
+            employeeDto = mapEmployeeToDto(e);
+            responseEmployeeList.add(employeeDto);
+
+        }
+
+        HashMap map = new HashMap();
+
+        map.put("data", responseEmployeeList);
+        map.put("totalCount", totalCount);
+
+        return map;
+
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -93,8 +211,21 @@ public class EmployeeServiceImpl implements EmployeeService , UserDetailsService
                 authorities.add(new SimpleGrantedAuthority(p));
 
             }
-            System.out.println(Arrays.asList(authorities));
             return new User(employee.get().getEno(), employee.get().getPassword(), authorities);
         }
+    }
+
+    private EmployeeDto mapEmployeeToDto(Employee e){
+
+        EmployeeDto employeeDto = new EmployeeDto();
+
+        employeeDto.setEno(e.getEno());
+        employeeDto.setNic(e.getNic());
+        employeeDto.setName(e.getName());
+        employeeDto.setAddress(e.getAddress());
+        employeeDto.setEmail(e.getEmail());
+        employeeDto.setUserRoleId(e.getUserRole().getId().toString());
+
+        return employeeDto;
     }
 }

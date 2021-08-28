@@ -1,71 +1,54 @@
 package com.nsbm.server.controller;
+import com.nsbm.server.dto.EmployeeDto;
+import com.nsbm.server.service.impl.EmployeeServiceImpl;
+import org.springframework.web.bind.annotation.*;
 
-import com.nsbm.server.model.*;
-import com.nsbm.server.repository.EmployeeRepository;
-import com.nsbm.server.repository.UserPermissionRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
 
-import java.util.List;
-
-
-@RestController()
+@RestController
 @RequestMapping("api")
 public class EmployeeController {
 
+    private EmployeeServiceImpl employeeService;
 
-    private EmployeeRepository employeeRepository;
-    private UserPermissionRepository permissinRepository;
-
-    public EmployeeController(EmployeeRepository employeeRepository, UserPermissionRepository permissinRepository){
-        this.employeeRepository = employeeRepository;
-        this.permissinRepository = permissinRepository;
+    public EmployeeController(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
     }
 
-//        Employee staff = new Employee(null,
-//                "PN234",
-//                bCryptPasswordEncoder.encode("123"),
-//                "199901410750v",
-//                "Yasiru",
-//                "54",
-//                "y@gmail.com",null,r2);
-//
-//        Employee manager = new Employee(null,
-//                "BL453",
-//                bCryptPasswordEncoder.encode("456"),
-//                "19410750v",
-//                "Kavya",
-//                "945",
-//                "k@gmail.com",null,r1);
+    @GetMapping("/employees")
+    public HashMap<String,Object> getEmployees(
+            @RequestParam(name="requireTotalCount",required = false) boolean requireTotalCount,
+            @RequestParam(name="skip") int skip,
+            @RequestParam(name="take") int take,
+            @RequestParam(name="sort",required = false) String sort,
+            @RequestParam(name="filter",required = false) String filter
+    ) {
 
-
-    @GetMapping("/emp")
-    public List<Employee> emp(){
-        return employeeRepository.findAll();
+        return employeeService.findAll(requireTotalCount,skip,take,sort,filter);
     }
 
-    @GetMapping("/emp1")
-    public List<String[]> emp1(){
-        Pageable pageable = PageRequest.of(0, 2);
-        List<String[]> e = permissinRepository.getPermissions(pageable);
-        return e;
+    @PostMapping("/employees")
+    public EmployeeDto saveEmployee(@RequestBody EmployeeDto employees) {
+
+        return employeeService.save(employees);
     }
 
+    @PutMapping("/employees/{key}")
+    public EmployeeDto editEmployee(
+            @PathVariable("key") String key,
+            @RequestBody EmployeeDto employee) {
 
+        return employeeService.edit(key,employee);
+    }
 
+    @DeleteMapping("/employees/{key}")
+    public EmployeeDto deleteEmployee(@PathVariable("key") String key) {
 
-//    @PreAuthorize("hasAuthority('attendance:delete')")
-//    @GetMapping("/roles")
-//    public List<UserRole> roles(){
-//        return roleService.findAll();
-//    }
-//    @GetMapping("/per")
-//    public List<UserPermission> per(){
-//        return  permissionService.findAll();
-//    }
+        EmployeeDto employee = new EmployeeDto();
+        employee.setEno(key);
+
+        return  employeeService.delete(employee);
+    }
 
 
 }

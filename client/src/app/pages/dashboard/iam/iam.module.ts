@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { IamRoutingModule } from './iam-routing.module';
 import { IamComponent } from './iam.component';
+import {DxDataGridModule} from "devextreme-angular";
+import {DetailGridModule} from "./detail-grid/detail-grid.module";
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { IamComponent } from './iam.component';
   ],
   imports: [
     CommonModule,
-    IamRoutingModule
+    IamRoutingModule,
+    DxDataGridModule,
+    DetailGridModule
   ]
 })
 export class IamModule { }

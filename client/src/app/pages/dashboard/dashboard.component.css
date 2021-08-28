@@ -6,7 +6,7 @@ ul {
   visibility: hidden;
   opacity: 0;
   list-style: none;
-  width: 200px;
+  width: 80%;
   position: absolute;
   background: #fff;
   z-index: 99;
@@ -32,6 +32,7 @@ ul {
 .navbar-nav .nav-item .submenu a li mat-icon{
   vertical-align: middle;
   margin-right: 3px;
+  margin-left: 15px;
 }
 
 .navbar-nav .nav-item mat-icon{

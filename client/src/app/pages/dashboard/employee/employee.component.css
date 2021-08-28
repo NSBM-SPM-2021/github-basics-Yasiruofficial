@@ -1,4 +1,11 @@
+::ng-deep .dx-datagrid .delete-class{
+  color:red;
+}
 
-dx-data-grid{
-  background-image: linear-gradient(45deg, red 0%, blue 100%);
- }
+::ng-deep .dx-datagrid .edit-class{
+  color:orange;
+}
+
+::ng-deep .dx-datagrid .save-class{
+  color:green;
+}

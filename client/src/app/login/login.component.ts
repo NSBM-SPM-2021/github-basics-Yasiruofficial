@@ -10,13 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  private isLoggedIn: boolean = false;
-  private roles: any;
-  private isLoginFailed: boolean = false;
-  private errorMessage: any;
-
+export class LoginComponent implements OnInit ,OnDestroy{
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
@@ -26,7 +20,9 @@ export class LoginComponent implements OnInit {
 
   login : Subscription = new Subscription();
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("LoginComponent ngOnInit")
+  }
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),

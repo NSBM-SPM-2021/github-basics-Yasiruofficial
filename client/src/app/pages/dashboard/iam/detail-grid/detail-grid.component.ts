@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import DataSource from "devextreme/data/data_source";
 import ArrayStore from "devextreme/data/array_store";
 
@@ -7,9 +7,10 @@ import ArrayStore from "devextreme/data/array_store";
   templateUrl: './detail-grid.component.html',
   styleUrls: ['./detail-grid.component.css']
 })
-export class DetailGridComponent implements OnInit {
+export class DetailGridComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
+    console.log("DetailGridComponent ngOnInit")
   }
 
   @Input()

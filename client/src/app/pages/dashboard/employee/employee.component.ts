@@ -39,6 +39,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("EmployeeComponent ngOnInit")
   }
 
 }

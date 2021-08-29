@@ -10,6 +10,7 @@ export class IamComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("IamComponent ngOnInit")
   }
 
 }

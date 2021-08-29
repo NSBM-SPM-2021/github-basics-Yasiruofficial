@@ -1,6 +1,7 @@
 package com.nsbm.server.controller;
 import com.nsbm.server.dto.EmployeeDto;
 import com.nsbm.server.service.impl.EmployeeServiceImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @PreAuthorize("hasAnyAuthority('employee:read')")
     @GetMapping("/employees")
     public HashMap<String,Object> getEmployees(
             @RequestParam(name="requireTotalCount",required = false) boolean requireTotalCount,
@@ -27,12 +29,14 @@ public class EmployeeController {
         return employeeService.findAll(requireTotalCount,skip,take,sort,filter);
     }
 
+    @PreAuthorize("hasAnyAuthority('employee:write')")
     @PostMapping("/employees")
     public EmployeeDto saveEmployee(@RequestBody EmployeeDto employees) {
 
         return employeeService.save(employees);
     }
 
+    @PreAuthorize("hasAnyAuthority('employee:edit')")
     @PutMapping("/employees/{key}")
     public EmployeeDto editEmployee(
             @PathVariable("key") String key,
@@ -41,6 +45,7 @@ public class EmployeeController {
         return employeeService.edit(key,employee);
     }
 
+    @PreAuthorize("hasAnyAuthority('employee:delete')")
     @DeleteMapping("/employees/{key}")
     public EmployeeDto deleteEmployee(@PathVariable("key") String key) {
 

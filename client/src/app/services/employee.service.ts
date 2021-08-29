@@ -38,11 +38,9 @@ export class EmployeeService {
       if (i in loadOptions && this.isNotEmpty(loadOptions[i]))
         params = params.set(i, JSON.stringify(loadOptions[i]));
     });
-    console.log(JSON.stringify(loadOptions));
     return this.httpClient.get(API_URL + encodeURIComponent("employees"), {params: params})
       .toPromise()
       .then((data: any) => {
-        console.log(JSON.stringify(data));
         return {
           data: data.data,
           totalCount: data.totalCount,
@@ -51,36 +49,48 @@ export class EmployeeService {
         };
       })
       .catch(error => {
-        console.log(error)
+        if(error.status === 403){
+          throw 'You are Unauthorized to READ employees'
+        }
         throw 'Data Loading Error'
       });
   }
 
   insert(values: any) {
-    console.log(values)
+
     return this.httpClient.post(API_URL + encodeURIComponent("employees"), values)
       .toPromise()
       .then()
       .catch(error => {
-        console.log(error)
+        if(error.status === 403){
+          throw 'You are Unauthorized to ADD employees'
+        }
         throw 'Data Adding Error'
       })
   }
 
   update(key: string, values: any) {
-    console.log(key)
-    console.log(values)
     return this.httpClient.put(API_URL +"employees/" + key, values)
       .toPromise()
       .then()
-      .catch((error => {throw 'Data Editing Error'}))
+      .catch((error => {
+        if(error.status === 403){
+          throw 'You are Unauthorized to EDIT employees'
+        }
+        throw 'Data Editing Error'
+      }))
   }
 
   remove(key: string) {
     return this.httpClient.delete(API_URL + "employees/"+key)
       .toPromise()
       .then()
-      .catch((error => {throw 'Data Romove Error'}))
+      .catch((error => {
+        if(error.status === 403){
+          throw 'You are Unauthorized to DELETE employees'
+        }
+        throw 'Data Romove Error'
+      }))
   }
 
 }

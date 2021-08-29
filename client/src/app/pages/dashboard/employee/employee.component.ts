@@ -1,7 +1,6 @@
-import { Component, enableProdMode,OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import CustomStore from 'devextreme/data/custom_store'
-import {Observable} from "rxjs";
 import {EmployeeService} from "../../../services/employee.service";
 
 
@@ -11,7 +10,7 @@ import {EmployeeService} from "../../../services/employee.service";
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent{
 
   dataSource: any = {};
   isVisitable : boolean = false;
@@ -36,10 +35,6 @@ export class EmployeeComponent implements OnInit {
 
     });
 
-  }
-
-  ngOnInit(): void {
-    console.log("EmployeeComponent ngOnInit")
   }
 
 }

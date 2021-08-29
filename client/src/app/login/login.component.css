@@ -1,3 +1,7 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 :host {
   display: flex;
   justify-content: center;
@@ -15,14 +19,12 @@ mat-card-content {
   justify-content: center;
 }
 
-.error {
-  padding: 16px;
-  width: 300px;
-  color: white;
-  background-color: red;
+.mat-error {
+  text-align:center;
 }
 
 .button {
   display: flex;
   justify-content: flex-end;
 }
+

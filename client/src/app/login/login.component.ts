@@ -12,6 +12,10 @@ import {Subscription} from "rxjs";
 })
 export class LoginComponent implements OnInit ,OnDestroy{
 
+  loginBtnClicked: boolean = false;
+  isError : boolean = false;
+  errorText : string = "";
+
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private router: Router,
@@ -31,21 +35,34 @@ export class LoginComponent implements OnInit ,OnDestroy{
 
   submit() {
 
+    this.loginBtnClicked  =true
+    this.isError = false;
+    this.errorText = "";
+
     const { username, password } = this.form.value;
 
     this.login = this.authService.login(username, password).subscribe(
 
       data => {
+
         this.tokenStorage.saveToken(data.access_token);
         if(this.route.snapshot.queryParams['returnUrl']){
           this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
         }else{
           this.router.navigate(['dashboard']);
         }
-
+        this.loginBtnClicked  = false
       },
       err => {
-        console.log(JSON.stringify(err));
+        this.isError = true;
+        if(err.status === 403){
+          this.errorText = "Invalid Username/Password";
+        }else{
+          console.log(err)
+          this.errorText = "Please check your connection";
+        }
+        this.loginBtnClicked  = false
+
       }
     );
 

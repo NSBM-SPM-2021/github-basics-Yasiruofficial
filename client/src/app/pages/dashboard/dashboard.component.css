@@ -2,6 +2,10 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
+::ng-deep .mat-toolbar.mat-primary{
+  background-color: #1177d1;
+}
 .navbar-nav .nav-item .submenu {
   visibility: hidden;
   opacity: 0;

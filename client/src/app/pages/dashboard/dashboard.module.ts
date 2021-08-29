@@ -10,6 +10,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from '@angular/material/button';
 import {DxDrawerModule, DxListModule, DxToolbarModule} from "devextreme-angular";
+import {MatTreeModule} from "@angular/material/tree";
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {DxDrawerModule, DxListModule, DxToolbarModule} from "devextreme-angular"
     MatButtonModule,
     DxToolbarModule,
     DxDrawerModule,
-    DxListModule
+    DxListModule,
+    MatTreeModule
   ]
 })
 export class DashboardModule { }

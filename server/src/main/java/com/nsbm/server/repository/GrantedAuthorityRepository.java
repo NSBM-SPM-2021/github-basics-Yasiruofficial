@@ -1,6 +1,5 @@
 package com.nsbm.server.repository;
 
-import com.nsbm.server.model.Employee;
 import com.nsbm.server.model.GrantedAuthority;
 import com.nsbm.server.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;

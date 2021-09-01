@@ -1,0 +1,71 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav mode="side" opened position="start">
+    <div class="mat-sidenav-title"><img src="../../../assets/logo.png"/></div>
+
+    <mat-divider></mat-divider>
+
+    <nav class="navbar navbar-expand-md">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+
+          <div></div>
+
+          <li class="nav-item"><mat-icon>dashboard</mat-icon>Dashboard
+            <ul class="submenu">
+              <a routerLink=""><li><mat-icon>home</mat-icon>Home</li></a>
+              <a routerLink="iam"><li><mat-icon>verified_user</mat-icon>IAM</li></a>
+              <a routerLink="employee"><li><mat-icon>people</mat-icon>Employees</li></a>
+            </ul>
+          </li>
+
+          <div></div>
+          <mat-divider></mat-divider>
+          <div></div>
+
+          <li class="nav-item"><mat-icon>event_available</mat-icon>Attendance
+            <ul class="submenu">
+              <a routerLink="iam"><li><mat-icon>today</mat-icon>My attendance</li></a>
+              <a routerLink="iam"><li><mat-icon>done_all</mat-icon>Applied Leaves</li></a>
+              <a routerLink="iam"><li><mat-icon>info</mat-icon>Pending Leaves</li></a>
+              <a routerLink="iam"><li><mat-icon>remove_done</mat-icon>No Pay</li></a>
+            </ul>
+          </li>
+
+          <div></div>
+          <mat-divider></mat-divider>
+          <div></div>
+
+          <li class="nav-item"><mat-icon>contact_support</mat-icon>Contact
+            <ul class="submenu">
+              <a routerLink="iam"><li><mat-icon>remove_done</mat-icon>IT Manager</li></a>
+              <a routerLink="iam"><li><mat-icon>remove_done</mat-icon>SOC</li></a>
+              <a routerLink="iam"><li><mat-icon>remove_done</mat-icon>SOE</li></a>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      NSBM HR
+
+      <span class="example-spacer"></span>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+      </mat-menu>
+
+
+    </mat-toolbar>
+    <div class="main-content">
+      <h1>Dashboard</h1>
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

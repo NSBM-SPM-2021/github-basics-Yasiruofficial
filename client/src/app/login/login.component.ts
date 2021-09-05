@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit ,OnDestroy{
+export class LoginComponent implements OnDestroy{
 
   loginBtnClicked: boolean = false;
   isError : boolean = false;
@@ -24,54 +24,51 @@ export class LoginComponent implements OnInit ,OnDestroy{
 
   login : Subscription = new Subscription();
 
-  ngOnInit(): void {
-    console.log("LoginComponent ngOnInit")
-  }
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
 
-  submit() {
+  submit() : any {
 
-    this.loginBtnClicked  =true
+    if(!this.form.valid) {
+      this.isError = true;
+      return false
+    }
+
+    this.loginBtnClicked  = true
     this.isError = false;
     this.errorText = "";
 
     const { username, password } = this.form.value;
 
-    this.login = this.authService.login(username, password).subscribe(
 
-      data => {
+      this.login = this.authService.login(username, password).subscribe(
 
-        this.tokenStorage.saveToken(data.access_token);
-        if(this.route.snapshot.queryParams['returnUrl']){
-          this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
-        }else{
-          this.router.navigate(['dashboard']);
+        data => {
+          this.tokenStorage.saveToken(data.access_token);
+          if(this.route.snapshot.queryParams['returnUrl']){
+            this.router.navigate([this.route.snapshot.queryParams['returnUrl']]);
+          }else{
+            this.router.navigate(['dashboard']);
+          }
+          this.loginBtnClicked  = false
+        },
+        err => {
+          this.isError = true;
+          if(err.status === 403){
+            this.errorText = "Invalid Username/Password";
+          }else{
+            this.errorText = "Please check your connection";
+          }
+          this.loginBtnClicked  = false
         }
-        this.loginBtnClicked  = false
-      },
-      err => {
-        this.isError = true;
-        if(err.status === 403){
-          this.errorText = "Invalid Username/Password";
-        }else{
-          console.log(err)
-          this.errorText = "Please check your connection";
-        }
-        this.loginBtnClicked  = false
-
-      }
-    );
-
+      );
   }
 
   ngOnDestroy() {
     this.login.unsubscribe();
   }
-
-  @Input() error: boolean = false
 
 }

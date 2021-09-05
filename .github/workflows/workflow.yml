@@ -5,6 +5,7 @@ on:
     branches: [ dev ]
 
 jobs:
+
   backend:
     runs-on: [self-hosted,Linux,X64,nsbmhr]
     steps:
@@ -34,9 +35,17 @@ jobs:
     - name: System Prune
       run: docker system prune --all -f
 
-
-  frontend:
+  frontend-test:
     needs: backend
+    runs-on: [windows-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Testing 
+      run: npm i && npm test --browsers=ChromeHeadless --watch=false
+      working-directory: ./client
+      
+  frontend:
+    needs: frontend-test
     runs-on: [self-hosted,Linux,X64,nsbmhr]
     steps:
     - uses: actions/checkout@v2

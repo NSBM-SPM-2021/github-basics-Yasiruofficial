@@ -1,0 +1,69 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  backend:
+    runs-on: [self-hosted,Linux,X64,nsbmhr]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build with Maven
+      run: mvn -B package --file ./server/pom.xml
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./server
+        file: ./server/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/hr-portal:backend
+    - name: Create Fresh Backend Service On Swarm 
+      id: create
+      run: docker service create --replicas 2 --publish published=9001,target=9001 --name="backendservice" yasiru1999/hr-portal:backend
+      continue-on-error: true
+    - name: Update Backend Service On Swarm 
+      if: steps.create.outcome != 'success'
+      run: docker service update --image yasiru1999/hr-portal:backend backendservice
+    - name: System Prune
+      run: docker system prune --all -f
+
+
+  frontend:
+    needs: backend
+    runs-on: [self-hosted,Linux,X64,nsbmhr]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./client
+        file: ./client/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/hr-portal:frontend
+    - name: Create Fresh Frontend Service On Swarm 
+      id: create
+      run: docker service create --replicas 2 --publish published=80,target=80 --name="frontendservice" yasiru1999/hr-portal:frontend
+      continue-on-error: true
+    - name: Update Frontend Service On Swarm 
+      if: steps.create.outcome != 'success'
+      run: docker service update --image yasiru1999/hr-portal:frontend frontendservice
+    - name: System Prune
+      run: docker system prune --all -f
+
+      
+
+      
+

@@ -93,18 +93,60 @@ public class EmployeeServiceImpl implements EmployeeService , UserDetailsService
         return null;
     }
 
-    @Override
-    public EmployeeDto findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public EmployeeDto findByEno(String eno) {
-        return null;
-    }
 
     @Override
     public HashMap<String, Object> findAll(boolean requireTotalCount, int skip, int take, String sort, String filter) {
-        return null;
+        Pageable pageable;
+        Page<Employee> employeePage;
+        List<Employee> employeeList;
+        int totalCount;
+
+        pageable = PageRequest.of(skip/take,take);
+
+        if(filter == null){
+            employeePage = employeeRepository.findAll(pageable);
+            totalCount = (int)employeePage.getTotalElements();
+
+        }else{
+
+            filter = filter.replace("\"", "");
+            filter = filter.replace("]", "");
+            filter = filter.replace("[", "");
+            filter = filter.replace(" ", "");
+
+            String[] splitFilter = filter.split(",");
+
+            String query = "";
+
+            if(splitFilter[1].equals("contains")){
+                switch(splitFilter[0]){
+                    case "eno":
+                        query = splitFilter[2]; break;
+                }
+            }
+
+            employeePage = employeeRepository.findByEnoContaining(query,pageable);
+            totalCount = (int)employeePage.getTotalElements();
+
+        }
+
+        employeeList =employeePage.getContent();
+        List<EmployeeDto> responseEmployeeList = new ArrayList<>();
+
+        for( Employee e : employeeList ){
+
+            EmployeeDto employeeDto = new EmployeeDto();
+            employeeDto = mapEmployeeToDto(e);
+            responseEmployeeList.add(employeeDto);
+
+        }
+
+        HashMap map = new HashMap();
+
+        map.put("data", responseEmployeeList);
+        map.put("totalCount", totalCount);
+
+        return map;
+
     }
 }

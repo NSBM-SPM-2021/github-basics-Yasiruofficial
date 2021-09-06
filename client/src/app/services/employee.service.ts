@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
-import {HOST,httpOptions_Global} from "../global-variables";
+import {HOST} from "../global-variables";
 
 const API_URL = HOST;
-const HEADER_OPTION = httpOptions_Global;
 
 
 @Injectable({

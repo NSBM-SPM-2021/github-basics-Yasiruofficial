@@ -1,0 +1,11 @@
+::ng-deep .dx-datagrid .delete-class{
+  color:red;
+}
+
+::ng-deep .dx-datagrid .edit-class{
+  color:orange;
+}
+
+::ng-deep .dx-datagrid .save-class{
+  color:green;
+}

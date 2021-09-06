@@ -7,9 +7,7 @@ public interface EmployeeService {
 
     EmployeeDto save(EmployeeDto employeeDto);
     EmployeeDto delete(EmployeeDto employeeDto);
-    EmployeeDto edit(String key,EmployeeDto employeeDto);
-    EmployeeDto findById(Long id);
-    EmployeeDto findByEno(String eno);
+    EmployeeDto edit(String key,EmployeeDto employeeDto);;
     HashMap<String,Object> findAll(boolean requireTotalCount,
                                     int skip,
                                     int take,

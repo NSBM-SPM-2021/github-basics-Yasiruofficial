@@ -9,6 +9,9 @@
 - ### Container orchestration - ![Swarm](https://img.shields.io/badge/docker%20-swarm-blue?style=flat&logo=docker&logoColor=white)
 - ### CI - ![GitHub Actions](https://img.shields.io/badge/githubactions-%232671E5.svg?style=flat&logo=githubactions&logoColor=white)
 - ### Role Based Access Control - ![auth0](https://img.shields.io/badge/spring-security-green?style=flat&logo=spring&logoColor=white)  ![auth0](https://img.shields.io/badge/Auth0-JWT-yellowgreen?style=flat&logo=auth0&logoColor=white)
+  - **ADMINS** can only VIEW and ADD another **ADMIN**
+  - **ADMINS** can VIEW, ADD, EDIT and DELETE **STAFF** members
+  - **STAFF** members can only VIEW **ADMINS and other STAFF** members
 
 
 
@@ -53,7 +56,7 @@ Please make sure to update tests as appropriate.
 #### Relevent Screenshots of CI/CD and Unit Testing
 # CI/CD
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/pipeline.PNG)
-# Unit Testing framework - Jasmine | Task rnner - Karma
+# Unit Testing framework - Jasmine | Task runner - Karma
 # - In My PC ( VIDEO )
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/testpc.gif)
 # - In CI

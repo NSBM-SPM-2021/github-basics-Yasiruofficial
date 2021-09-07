@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
   let loginBtn: any;
 
   const validUser = {
-    username: 'BL45c',
+    username: 'HOHR2',
     password: '456'
   };
 

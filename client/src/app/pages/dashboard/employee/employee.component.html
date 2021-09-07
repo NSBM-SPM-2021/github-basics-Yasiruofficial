@@ -1,0 +1,97 @@
+<div class="main-content">
+  <h2>Employee Details</h2>
+</div>
+
+<dx-data-grid id="gridContainer"
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [remoteOperations]="true">
+  <dxo-search-panel [visible]="true" placeholder="Employee ID"></dxo-search-panel>
+
+  <dxo-load-panel
+    [enabled]="true"
+    indicatorSrc="../../../../assets/loading.svg"
+    [showPane]="true"
+    text=""
+  ></dxo-load-panel>
+
+  <dxo-editing
+    [allowAdding]="true"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    mode="row"
+    [useIcons]="true"
+  ></dxo-editing>
+
+  <dxi-column
+    [allowSorting]="false"
+    dataField="eno"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    dataField="nic"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    dataField="name"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    dataField="address"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    dataField="email"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column
+    [allowSorting]="false"
+    [allowFiltering]="false"
+    dataField="userRoleId"
+    dataType="string"
+    caption="User Role">
+    <dxo-lookup
+      [dataSource]="rolse"
+      valueExpr="userRoleId"
+      displayExpr="name">
+    </dxo-lookup>
+  </dxi-column>
+
+  <dxi-column type="buttons" >
+    <dxi-button name="edit" hint="edit" cssClass="edit-class"></dxi-button>
+    <dxi-button name="delete" hint="delete" cssClass="delete-class"></dxi-button>
+    <dxi-button name="save" hint="save" cssClass="save-class"></dxi-button>
+  </dxi-column>
+
+  <dxo-paging [pageSize]="5"></dxo-paging>
+
+  <dxo-pager
+    displayMode="full"
+    infoText="Page {0} of {1} ({2} items)"
+    [showNavigationButtons]="true"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [visible]="true"
+    [allowedPageSizes]="[5,10]"
+  ></dxo-pager>
+
+
+
+</dx-data-grid>
+
+
+
+

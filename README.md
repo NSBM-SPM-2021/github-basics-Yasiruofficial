@@ -47,26 +47,26 @@ Please make sure to update tests as appropriate.
 ### Relevent Screenshots of 1st Sprint
 
 # Agile Board
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/boarde.PNG)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/boarde.PNG)
 # Epic - user_login
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/epice.png)
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/epic2e.png)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/epice.png)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/epic2e.png)
 # One example user story for above Epic (user_login)
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/use.png)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/use.png)
 # User login Release
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/ulr.PNG)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/ulr.PNG)
 # Burndown Report for Spring 1
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/bdr.PNG)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/bdr.PNG)
 
 ## Technical
 ### Relevent Screenshots of CI/CD and Unit Testing
 # CI/CD
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/pipeline.PNG)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/pipeline.PNG)
 # Unit Testing framework - Jasmine | Task runner - Karma
 # - In My PC ( VIDEO )
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/testpc.gif)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/testpc.gif)
 # - In CI
-![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/testgit.PNG)
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/testgit.PNG)
 
 
 

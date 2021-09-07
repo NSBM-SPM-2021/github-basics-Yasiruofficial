@@ -34,7 +34,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         throw new IllegalStateException("UserRole Not Found");
 
-
     }
 
     @Override

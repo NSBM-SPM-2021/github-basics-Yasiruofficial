@@ -80,17 +80,80 @@ public class EmployeeServiceImpl implements EmployeeService , UserDetailsService
 
     @Override
     public EmployeeDto save(EmployeeDto employeeDto) {
-        return null;
+
+        Employee e = new Employee();
+        e.setEno(employeeDto.getEno());
+        e.setNic(employeeDto.getNic());
+        e.setName(employeeDto.getName());
+        e.setAddress(employeeDto.getAddress());
+        e.setPassword("$2a$10$PB4n5eIsV8L.4Rou6/Xtkey/dS6k5T/ODBUEb3k.7Rl9YgLEP8x3O");
+        e.setEmail(employeeDto.getEmail());
+        UserRole userRole = userRoleService.findById(Long.valueOf(employeeDto.getUserRoleId()));
+        e.setUserRole(userRole);
+
+        employeeRepository.save(e);
+
+        return employeeDto;
+
     }
 
     @Override
-    public EmployeeDto delete(EmployeeDto employeeDto) {
-        return null;
+    public EmployeeDto delete(EmployeeDto employee) throws IllegalStateException{
+
+        System.out.println("Delete Role is -> "+employee.getUserRoleId());
+
+        Optional<Employee> e = employeeRepository.findByEno(employee.getEno());
+
+        if(e.isPresent()){
+            if(e.get().getUserRole().getDescription().equals("ROLE_HR")){
+                throw new IllegalStateException("ROLE_HR can't delete another ROLE_HR");
+            }
+            e.get().setUserRole(null);
+            employeeRepository.deleteById(e.get().getId());
+            return new EmployeeDto();
+        }
+        throw new UsernameNotFoundException("User not found in the database");
+
     }
 
     @Override
-    public EmployeeDto edit(String key, EmployeeDto employeeDto) {
-        return null;
+    public EmployeeDto edit(String key,EmployeeDto employeeDto) throws IllegalStateException{
+
+
+        Optional<Employee> e = employeeRepository.findByEno(key);
+
+        if(e.isPresent()) {
+            if(e.get().getUserRole().getDescription().equals("ROLE_HR")){
+                throw new IllegalStateException("ROLE_HR can't edit another ROLE_HR");
+            }
+            if(employeeDto.getEno() != null){
+                e.get().setEno(employeeDto.getEno());
+            }
+            if(employeeDto.getNic() != null){
+                e.get().setNic(employeeDto.getNic());
+            }
+            if(employeeDto.getName() != null){
+                e.get().setName(employeeDto.getName());
+            }
+            if(employeeDto.getAddress() != null){
+                e.get().setAddress(employeeDto.getAddress());
+            }
+            if(employeeDto.getEmail() != null){
+                e.get().setEmail(employeeDto.getEmail());
+            }
+            if(employeeDto.getUserRoleId() != null){
+                UserRole role = userRoleService.findById(Long.valueOf(employeeDto.getUserRoleId()));
+                e.get().setUserRole(role);
+            }
+
+            System.out.println(e.get().toString());
+            System.out.println("End Edit Method");
+            employeeRepository.save(e.get());
+
+            return employeeDto;
+       }
+        throw new UsernameNotFoundException("User not found in the database");
+
     }
 
 

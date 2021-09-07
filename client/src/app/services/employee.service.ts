@@ -88,7 +88,7 @@ export class EmployeeService {
         if(error.status === 403){
           throw 'You are Unauthorized to DELETE employees'
         }
-        throw 'Data Romove Error'
+        throw 'Data Remove Error'
       }))
   }
 

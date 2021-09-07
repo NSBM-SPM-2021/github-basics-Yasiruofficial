@@ -43,7 +43,7 @@ Please make sure to update tests as appropriate.
 
 ## Project Management 
 ### Tool - ZENHUB (altenative to trello)
-##### Project Management Board URL -> [github-basics-Yasiruofficial - DEV](https://app.zenhub.com/workspaces/development-612dd1039a6334001246f8a7/board)
+##### Project Management Board URL -> [github-basics-Yasiruofficial - DEV](https://app.zenhub.com/workspaces/nsbm-spm-2021---dev-612ddc9995710600125b61fc/board)
 ### Relevent Screenshots of 1st Sprint
 
 # Agile Board

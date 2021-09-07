@@ -38,7 +38,8 @@ Please make sure to update tests as appropriate.
 
 ## Project Management 
 ### Tool - ZENHUB (altenative to trello)
-#### Relevent Screenshots of 1st Sprint
+##### Project Management Board URL -> [github-basics-Yasiruofficial - DEV](https://app.zenhub.com/workspaces/development-612dd1039a6334001246f8a7/board)
+### Relevent Screenshots of 1st Sprint
 
 # Agile Board
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/boarde.PNG)
@@ -53,7 +54,7 @@ Please make sure to update tests as appropriate.
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/bdr.PNG)
 
 ## Technical
-#### Relevent Screenshots of CI/CD and Unit Testing
+### Relevent Screenshots of CI/CD and Unit Testing
 # CI/CD
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/readme/Screenshots/pipeline.PNG)
 # Unit Testing framework - Jasmine | Task runner - Karma

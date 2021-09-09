@@ -1,10 +1,32 @@
 # HR PORTAL 
 ## Check the site on [HR PORTAL](http://dev.nsbm.xyz/)
 
-| USERNAME | PASSWORD | ROLE |
-| --- | --- | --- |
-| HOHR2 | 456 | ADMIN |
-| BLNST3 | 456 | STAFF |
+<table>
+    <thead>
+        <tr>
+            <th>USERNAME</th>
+            <th>PASSWORD</th>
+            <th>ROLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>HOHR2</td>
+            <td>456</td>
+            <td>ADMIN</td>
+        </tr>
+        <tr>
+            <td>BLNST3</td>
+            <td>456</td>
+            <td>STAFF</td>
+        </tr>
+        <tr>
+            <td colspan=2>Default password for newly created user</td>
+            <td>456</td>
+        </tr>
+    </tbody>
+</table>
+
 
 - ### Hosting/IaaS - ![Docker Automated build](https://img.shields.io/badge/Digital_Ocean-0080FF?style=flat&logo=DigitalOcean&logoColor=white) 
 - ### Server - ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=flat&logo=nginx&logoColor=white) ![Tomcat](https://img.shields.io/badge/apache-tomcat-yellow?style=flat&logo=apache&logoColor=white)

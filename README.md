@@ -11,12 +11,12 @@
     </thead>
     <tbody>
         <tr>
-            <td>L1 Name</td>
-            <td>L2 Name A</td>
-            <td>L3 Name A</td>
+            <td>HOHR2</td>
+            <td>456</td>
+            <td>ADMIN</td>
         </tr>
         <tr>
-            <td>HOHR2</td>
+            <td>BLNST3</td>
             <td>456</td>
             <td>STAFF</td>
         </tr>

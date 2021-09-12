@@ -68,6 +68,10 @@ Please make sure to update tests as appropriate.
 ##### Project Management Board URL -> [github-basics-Yasiruofficial - DEV](https://app.zenhub.com/workspaces/nsbm-spm-2021---dev-612ddc9995710600125b61fc/board)
 ### Relevent Screenshots of 1st Sprint
 
+
+# UI
+![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/dashboard.PNG)
+
 # Agile Board
 ![BDR](https://github.com/NSBM-SPM-2021/github-basics-Yasiruofficial/blob/dev/Screenshots/boarde.PNG)
 # Epic - user_login
